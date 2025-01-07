@@ -4,6 +4,9 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'us-central1-docker.pkg.dev/project-shubh-1/emarket/emarket:$COMMIT_SHA']
 - name: 'gcr.io/cloud-builders/kubectl'
-  args: ['set', 'image', 'deployment/emarket', 'emarket=us-central1-docker.pkg.dev/project-shubh-1/emarket/emarket:$COMMIT_SHA', '-n', 'my-standard-cluster']
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a' 
+  - 'CLOUDSDK_CONTAINER_CLUSTER=my-standard-cluster' 
+  args: ['set', 'image', 'deployment/emarket', 'emarket=us-central1-docker.pkg.dev/project-shubh-1/emarket/emarket:$COMMIT_SHA', '-n', 'default']
 images:
 - 'us-central1-docker.pkg.dev/project-shubh-1/emarket/emarket:$COMMIT_SHA'
