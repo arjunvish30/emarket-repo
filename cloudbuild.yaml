@@ -1,12 +1,12 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/project-shubh-1/emarket/emarket:$COMMIT_SHA', '.']
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket/emarket:$COMMIT_SHA', '.']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/project-shubh-1/emarket/emarket:$COMMIT_SHA']
+  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket/emarket:$COMMIT_SHA']
 - name: 'gcr.io/cloud-builders/kubectl'
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a' 
-  - 'CLOUDSDK_CONTAINER_CLUSTER=my-standard-cluster' 
-  args: ['set', 'image', 'deployment/emarket', 'emarket=us-central1-docker.pkg.dev/project-shubh-1/emarket/emarket:$COMMIT_SHA', '-n', 'default']
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=my-standard-cluster'
+  args: ['set', 'image', 'deployment/my-app', 'my-app=us-central1-docker.pkg.dev/project-shubh-1/emarket/emarket:$COMMIT_SHA', '-n', 'default']
 images:
-- 'us-central1-docker.pkg.dev/project-shubh-1/emarket/emarket:$COMMIT_SHA'
+- 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket/emarket:$COMMIT_SHA'
