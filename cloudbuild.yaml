@@ -1,17 +1,12 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket-repo/emarket:$COMMIT_SHA', '.'] 
-  id: 'Build Docker Image'
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket-repo/emarket:$COMMIT_SHA', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket-repo/emarket:latest', '.']
+  id: 'Build and Tag Docker Image'
 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket-repo/emarket:$COMMIT_SHA']  
-  id: 'Push Docker Image'
-
-# Add this step to tag the newest image as latest
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['tag', 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket-repo/emarket:$COMMIT_SHA', 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket-repo/emarket:latest']
-  id: 'Tag Latest Image'
+  id: 'Push Docker Image with Commit SHA'
 
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket-repo/emarket:latest']
-  id: 'Push Latest Image'
+  id: 'Push Docker Image with Latest Tag'
