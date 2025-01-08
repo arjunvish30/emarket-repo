@@ -1,10 +1,12 @@
 apiVersion: deploy.cloud.google.com/v1
 kind: Target
 metadata:
-  name: prod
-  annotations: {}
+  name: dev
+  annotations:
+    internal.clouddeploy.google.com/project: project-shubh-1
+    internal.clouddeploy.google.com/region: us-central1
   labels: {}
-description: prod
+description: dev
 requireApproval: true
 gke:
-  cluster: projects/project-shubh-1/locations/us-central1/clusters/prod-cluster
+  cluster: projects/project-shubh-1/locations/us-central1/clusters/non-prod-cluster
