@@ -16,3 +16,6 @@ serialPipeline:
   - targetId: prod
   #   profiles:
   #   - prod
+    # - targetId: prod
+  #   profiles:
+  #   - prod
