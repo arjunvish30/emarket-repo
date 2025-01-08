@@ -9,7 +9,7 @@ steps:
   env:
   - 'CLOUDSDK_COMPUTE_REGION=us-central1'
   - 'CLOUDSDK_CONTAINER_CLUSTER=non-prod-cluster'
-  args: ['set', 'image', 'deployment/non-prod-gke', 'emarket=us-central1-docker.pkg.dev/project-shubh-1/emarket/emarket:latest', '-n', 'default']
+  args: ['set', 'image', 'deployment/non-prod-gke', 'emarket=us-central1-docker.pkg.dev/project-shubh-1/emarket/emarket', '-n', 'default']
 images:
 - 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket/emarket:$COMMIT_SHA'
 - 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket/emarket:latest'
