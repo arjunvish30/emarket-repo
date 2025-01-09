@@ -6,15 +6,15 @@ spec:
   replicas: 2 
   selector:
     matchLabels:
-      app: emarket 
+      app: emarket  # Make sure this label matches the service selector
   template:
     metadata:
       labels:
-        app: emarket 
+        app: emarket  # This label should match the selector
     spec:
       containers:
       - name: emarket 
-        image: us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest  # Replace with your actual image name
+        image: us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest 
         ports:
         - containerPort: 80
 
@@ -22,12 +22,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: emarket-service  # Match the service name to your deployment
+  name: emarket-service-prod 
 spec:
   selector:
-    app: emarket  # Match the selector to your deployment
+    app: emarket  # This selector should match the deployment labels
   type: LoadBalancer 
   ports:
-  - protocol: TCP  # Add protocol for clarity
+  - protocol: TCP 
     port: 80
     targetPort: 80

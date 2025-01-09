@@ -7,16 +7,5 @@ steps:
   args: ['push', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest']
   id: 'Push Docker Image'
 
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'bash'
-  args:
-  - -c
-  - |
-    gcloud deploy releases create release-${BUILD_ID,,} \
-      --delivery-pipeline=emarket-pipeline \
-      --region=us-central1 \
-      --images=my-app-image=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest \
-      --source=./
-
 images:
 - 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest'
