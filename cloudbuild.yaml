@@ -4,7 +4,7 @@ steps:
 #docker build the image from httpd public dockerhub Apache image
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket', '.' ]
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket', './App' ]
 
 # Step 1
 #push the previously built image to the docker repo created in Step 0
