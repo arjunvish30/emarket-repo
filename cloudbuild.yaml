@@ -8,15 +8,15 @@ steps:
   id: 'Push Docker Image'
 
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'bash'  # Use 'bash' as the entrypoint
+  entrypoint: 'gcloud'
   args: 
-    - '-c' # To execute a command string
-    - |  # Use the pipe symbol for multi-line strings
-      RELEASE_NAME="emarket-release-$(date +%Y%m%d%H%M%S)"
-      gcloud deploy releases create "$RELEASE_NAME" \
-          --delivery-pipeline=emarket-pipeline \
-          --region=us-central1 \
-          --annotations=image-URI=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest
+    - 'deploy'
+    - 'releases'
+    - 'create'
+    - 'release-$BUILD_ID' 
+    - '--delivery-pipeline=my-demo-app'
+    - '--region=us-central1'
+    - '--images=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest'
   id: 'Create Cloud Deploy Release'
 
 images:
