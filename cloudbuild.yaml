@@ -16,7 +16,7 @@ steps:
       --delivery-pipeline=emarket-pipeline \
       --region=us-central1 \
       --images=my-app-image=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest \
-      --source=./kubernetes/
-      
+      --source=./
+
 images:
 - 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest'
