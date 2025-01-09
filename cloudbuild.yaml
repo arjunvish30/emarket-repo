@@ -4,7 +4,7 @@ steps:
   id: 'Build and Tag Docker Image'
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest'] # Add :latest tag
+  args: ['push', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest']
   id: 'Push Docker Image'
 
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -15,8 +15,8 @@ steps:
     gcloud deploy releases create release-$BUILD_ID \
       --delivery-pipeline=emarket-pipeline \
       --region=us-central1 \
-      --images=my-app-image=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest # Add :latest tag
-      --source=./emarket
+      --images=my-app-image=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest
+      --source=./emarket/kubernetes/
 
 images:
-- 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest' # Add this line
+- 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest'
