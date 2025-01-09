@@ -1,9 +1,0 @@
-steps:
-- name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'bash'
-  args:
-  - -c
-  - |
-    gcloud deploy delivery-pipelines create emarket-pipeline \
-      --region=us-central1 \
-      --description="Emarket delivery pipeline"

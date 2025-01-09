@@ -1,22 +1,26 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:$COMMIT_SHA', './App']
-  id: 'Build and Tag Docker Image'
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:$COMMIT_SHA']
-  id: 'Push Docker Image with Commit SHA'
+# Step 0
+#docker build the image from httpd public dockerhub Apache image
 
-- name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'bash'
-  args:
-  - -c
-  - |
-    set -e
-    gcloud deploy releases create release-$COMMIT_SHA \
-      --delivery-pipeline=emarket-pipeline \
-      --region=us-central1 \
-      --images=my-app=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest # Make sure this tag matches the one you push
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket', '.' ]
 
-images:
-- 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:$COMMIT_SHA'
+# Step 1
+#push the previously built image to the docker repo created in Step 0
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket']
+
+
+# Step 2
+# Publish the release
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - > 
+      gcloud deploy releases create release-$BUILD_ID
+      --delivery-pipeline=emarket-pipeline
+      --region=us-central1
+      --images=my-app-image=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket
+      --source=./

@@ -1,19 +1,5 @@
-apiVersion: skaffold/v3alpha1
+apiVersion: skaffold/v2beta16
 kind: Config
 deploy:
-  kubectl: {}
-profiles:
-- name: non-prod-gke
-  manifests:
-    rawYaml:
-    - k8s-non-prod-gke.yaml
-  build:
-    artifacts:
-    - image: us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest
-- name: prod-gke
-  manifests:
-    rawYaml:
-    - k8s-prod-gke.yaml
-  build:
-    artifacts:
-    - image: us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest
+  kubectl:
+    manifests: ["kubernetes/*.yaml"]

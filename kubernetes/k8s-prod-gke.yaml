@@ -1,32 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app-prod 
+  name: prod-gke1
 spec:
-  replicas: 3 # Adjust the number of replicas as needed
+  replicas: 2 
   selector:
     matchLabels:
-      app: my-app-prod
+      app: emarket 
   template:
     metadata:
       labels:
-        app: my-app-prod
+        app: emarket 
     spec:
       containers:
-      - name: my-app
-        image: us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest
+      - name: emarket 
+        image: us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest  # Replace with your actual image name
         ports:
         - containerPort: 80
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-app-service-prod 
+  name: emarket-service  # Match the service name to your deployment
 spec:
   selector:
-    app: my-app-prod
-  type: LoadBalancer
+    app: emarket  # Match the selector to your deployment
+  type: LoadBalancer 
   ports:
-  - protocol: TCP
-    port: 8080
+  - protocol: TCP  # Add protocol for clarity
+    port: 80
     targetPort: 80
