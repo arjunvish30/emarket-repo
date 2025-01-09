@@ -1,0 +1,29 @@
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
+  args:
+  - -c
+  - |
+    gcloud deploy targets create non-prod-gke \
+      --delivery-pipeline=emarket-pipeline \
+      --region=us-central1 \
+      --description="Non-prod GKE target" \
+      --require-approval=false \
+      --skaffold-file=skaffold.yaml \
+      --profile=non-prod-gke \
+      --deployment-target-type=GKE \
+      --gke-cluster=non-prod-cluster \
+      --gke-location=us-central1-a \
+      --gke-namespace=default
+
+    gcloud deploy targets create prod-gke \
+      --delivery-pipeline=emarket-pipeline \
+      --region=us-central1 \
+      --description="Prod GKE target" \
+      --require-approval=true \
+      --skaffold-file=skaffold.yaml \
+      --profile=prod-gke \
+      --deployment-target-type=GKE \
+      --gke-cluster=prod-cluster \
+      --gke-location=us-central1-a \
+      --gke-namespace=default

@@ -1,13 +1,19 @@
-apiVersion: skaffold/v4beta9
+apiVersion: skaffold/v3alpha1
 kind: Config
-build:
-  tagPolicy:
-    gitCommit: {}
-  local: {}
-manifests:
-  rawYaml:
-    - ./kubernetes/*
 deploy:
   kubectl: {}
-  logs:
-    prefix: container
+profiles:
+- name: non-prod-gke
+  manifests:
+    rawYaml:
+    - k8s-non-prod-gke.yaml
+  build:
+    artifacts:
+    - image: us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest
+- name: prod-gke
+  manifests:
+    rawYaml:
+    - k8s-prod-gke.yaml
+  build:
+    artifacts:
+    - image: us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest

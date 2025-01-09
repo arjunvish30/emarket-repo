@@ -1,12 +1,23 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket-repo/emarket:$COMMIT_SHA', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket-repo/emarket:latest', '.']
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:$COMMIT_SHA', './App']
   id: 'Build and Tag Docker Image'
 
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket-repo/emarket:$COMMIT_SHA']  
+  args: ['push', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:$COMMIT_SHA']
   id: 'Push Docker Image with Commit SHA'
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/emarket-repo/emarket:latest']
-  id: 'Push Docker Image with Latest Tag'
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
+  args:
+  - -c
+  - |
+    set -e
+    gcloud deploy releases create release-$COMMIT_SHA \
+      --delivery-pipeline=emarket-pipeline \
+      --region=us-central1 \
+      --images=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:$COMMIT_SHA
+  id: 'Create Cloud Deploy Release'
+
+images:
+- 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:$COMMIT_SHA'
