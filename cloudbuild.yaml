@@ -16,8 +16,7 @@ steps:
     gcloud deploy releases create release-$COMMIT_SHA \
       --delivery-pipeline=emarket-pipeline \
       --region=us-central1 \
-      --images=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:$COMMIT_SHA
-  id: 'Create Cloud Deploy Release'
+      --images=my-app=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest # Make sure this tag matches the one you push
 
 images:
 - 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:$COMMIT_SHA'
