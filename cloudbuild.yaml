@@ -12,11 +12,11 @@ steps:
   args:
   - -c
   - |
-    gcloud deploy releases create release-$BUILD_ID \
+    gcloud deploy releases create release-${BUILD_ID,,} \
       --delivery-pipeline=emarket-pipeline \
       --region=us-central1 \
-      --images=my-app-image=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest
-      --source=./emarket/kubernetes/
-
+      --images=my-app-image=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest \
+      --source=./kubernetes/
+      
 images:
 - 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest'
