@@ -23,5 +23,4 @@ steps:
       --delivery-pipeline="emarketpipeline" \
       --region="us-central1" \
       --images="emarket-image=us-central1-docker.pkg.dev/project-shubh-1/my-docker-repo/emarket-image" \
-      --initial-rollout-phase-id="emarket-$BUILD_ID" \
       --source="./"
