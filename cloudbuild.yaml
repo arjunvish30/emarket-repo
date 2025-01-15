@@ -23,4 +23,3 @@ steps:
       --delivery-pipeline=emarketpipeline
       --region=us-central1
       --images=emarket=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket
-      --source=./skaffold.yaml
