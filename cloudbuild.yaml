@@ -22,4 +22,4 @@ steps:
       --delivery-pipeline=emarketpipeline
       --region=us-central1
       --images=my-app-image=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket
-      --rollout-id=my-rollout-id  # Specify a valid rollout ID
+      --initial-rollout-phase-id=my-rollout-phase-id  # Use the correct flag
