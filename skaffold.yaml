@@ -2,6 +2,4 @@ apiVersion: skaffold/v2beta16
 kind: Config
 deploy:
   kubectl:
-    manifests:
-      - kubernetes/k8s-non-prod-gke.yaml
-      - kubernetes/k8s-prod-gke.yaml
+    manifests: ["k8s/*.yaml"]

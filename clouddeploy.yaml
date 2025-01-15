@@ -1,0 +1,17 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+ name: emarketpipeline
+description: main application pipeline
+serialPipeline:
+ stages:
+ - targetId: gke-nonprod
+   profiles: []
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+ name: gke-nonprod
+description: non-production cluster
+gke:
+ cluster: projects/project-shubh-1/locations/us-central1/clusters/gke-nonprod

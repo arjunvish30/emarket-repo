@@ -1,23 +1,26 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest', './App']
-  id: 'Build and Tag Docker Image'
 
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest']
-  id: 'Push Docker Image'
+# Step 0
+#docker build the image from httpd public dockerhub Apache image
 
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'gcloud'
-  args: 
-    - 'deploy'
-    - 'releases'
-    - 'create'
-    - 'release-$BUILD_ID' 
-    - '--delivery-pipeline=my-demo-app'
-    - '--region=us-central1'
-    - '--images=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest'
-  id: 'Create Cloud Deploy Release'
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket', '.' ]
 
-images:
-- 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket:latest'
+# Step 1
+#push the previously built image to the docker repo created in Step 0
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket']
+
+
+# Step 2
+# Publish the release
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - > 
+      gcloud deploy releases create release-$BUILD_ID
+      --delivery-pipeline=emarketpipeline
+      --region=us-central1
+      --images=my-app-image=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket
+      --source=./skaffold.yaml
