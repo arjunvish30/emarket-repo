@@ -22,5 +22,5 @@ steps:
       gcloud deploy releases create r-$BUILD_ID \
       --delivery-pipeline="emarketpipeline" \
       --region="us-central1" \
-      --images="emarket-image=us-central1-docker.pkg.dev/project-shubh-1/my-docker-repo/emarket-image" \
+      --images="emarket-image=us-central1-docker.pkg.dev/project-shubh-1/my-docker-repo/emarket-image:latest" \
       --source="./"
