@@ -4,12 +4,13 @@ steps:
 #docker build the image from httpd public dockerhub Apache image
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket', './App' ]
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket-image', './App' ]
 
 # Step 1
-#push the previously built image to the docker repo created in Step 0
+#push the previously built image to ythe docker repo created in Step 0
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket']
+    args: ['push', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket-image']
+
 
 # Step 2
 # Publish the release
@@ -17,9 +18,9 @@ steps:
     entrypoint: 'bash'
     args:
     - '-c'
-    - >
+    - > 
       gcloud deploy releases create release-$BUILD_ID
-      --delivery-pipeline=emarketpipeline
+      --delivery-pipeline=emarket-pipeline
       --region=us-central1
-      --images=my-app-image=us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket
-      --initial-rollout-phase-id=my-rollout-phase-id  # Use the correct flag
+      --images=emarket-image=us-central1-docker.pkg.dev/project-shubh-1/my-docker-repo/emarket-image
+      --source=./
