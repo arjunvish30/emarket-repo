@@ -4,12 +4,12 @@ steps:
 #docker build the image from httpd public dockerhub Apache image
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket-image', './App' ]
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/project-shubh-1/emarket/emarket-image', './App' ]
 
 # Step 1
 #push the previously built image to ythe docker repo created in Step 0
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/project-shubh-1/emarket-repo/emarket-image']
+    args: ['push', 'us-central1-docker.pkg.dev/project-shubh-1/emarket/emarket-image']
 
 
 # Step 2
@@ -20,7 +20,7 @@ steps:
     - '-c'
     - |
       gcloud deploy releases create r-$BUILD_ID \
-      --delivery-pipeline="emarketpipeline" \
+      --delivery-pipeline="emarket-pipeline" \
       --region="us-central1" \
       --images="emarket-image=us-central1-docker.pkg.dev/project-shubh-1/my-docker-repo/emarket-image:latest" \
       --source="./"
